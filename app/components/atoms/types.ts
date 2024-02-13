@@ -1,7 +1,8 @@
 export interface imageAtomInterface {
   src: string;
   alt: string;
-  size?: "xs" | "sm" | "md" | "lg";
+  width: number;
+  height: number;
 }
 export interface ButtonInterface {
   color?: string;

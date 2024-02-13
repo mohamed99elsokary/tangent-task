@@ -1,12 +1,7 @@
-import { Box } from "@chakra-ui/react";
 import Image from "next/image";
 import { imageAtomInterface } from "./types";
 
-const ImageAtom = ({ src, alt, size = "sm" }: imageAtomInterface) => {
-  return (
-    <Box boxSize={size}>
-      <Image src={src} alt={alt} />
-    </Box>
-  );
+const ImageAtom = ({ src, alt, width, height }: imageAtomInterface) => {
+  return <Image src={src} alt={alt} width={width} height={height} />;
 };
 export default ImageAtom;
