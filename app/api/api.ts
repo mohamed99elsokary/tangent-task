@@ -1,7 +1,9 @@
 import { productInterface } from "../types";
 
-export async function fetchProducts(): Promise<Array<productInterface>> {
-  const response = await fetch("https://dummyjson.com/products/");
+export async function fetchProducts(
+  query: string = ""
+): Promise<Array<productInterface>> {
+  const response = await fetch(`https://dummyjson.com/products/${query}`);
   if (response.status !== 200) {
     return [];
   }
