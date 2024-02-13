@@ -4,6 +4,7 @@ import { productInterface } from "../types";
 import { useEffect, useState } from "react";
 import CartProductCardOrganism from "../components/organisms/cartProductCardOrganism";
 import { handleCurrency } from "../utils";
+import Link from "next/link";
 export default function Cart() {
   const [products, setProducts] = useState<Array<productInterface>>([]);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -68,6 +69,8 @@ export default function Cart() {
 
   return (
     <>
+      <Link href="/">&#8592; home</Link>
+
       <Grid templateColumns="repeat(1, 1fr)" gap={6}>
         {products.map((product: productInterface) => (
           <GridItem key={product.title}>
