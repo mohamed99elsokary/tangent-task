@@ -17,28 +17,25 @@ export default function Home() {
   }, []);
 
   const addToCart = (product: productInterface) => {
-    const cart = localStorage.getItem("cart");
-    if (!cart) {
-      localStorage.setItem(
-        "cart",
-        JSON.stringify([{ ...product, quantity: 1 }])
-      );
+    const totalPrice = localStorage.getItem("totalPrice") || "0";
+    const cart = localStorage.getItem("cart") || "[]";
+    const parsedCart: Array<productInterface> = JSON.parse(cart);
+    const productIndex = parsedCart.findIndex(
+      (item: any) => product.id === item.id
+    );
+    let cartProduct: productInterface;
+    if (productIndex === -1) {
+      cartProduct = { ...product, quantity: 1 };
+      parsedCart.push(cartProduct);
     } else {
-      let parsedCart: Array<productInterface> = JSON.parse(cart);
-      const productIndex = parsedCart.findIndex(
-        (item: any) => product.id === item.id
-      );
-      if (productIndex === -1) {
-        localStorage.setItem(
-          "cart",
-          JSON.stringify([...parsedCart, { ...product, quantity: 1 }])
-        );
-      } else {
-        const oldProduct: productInterface = parsedCart[productIndex];
-        oldProduct.quantity += 1;
-        localStorage.setItem("cart", JSON.stringify(parsedCart));
-      }
+      cartProduct = parsedCart[productIndex];
+      parsedCart[productIndex] = {
+        ...cartProduct,
+        quantity: cartProduct.quantity + 1,
+      };
     }
+    localStorage.setItem("cart", JSON.stringify(parsedCart));
+    localStorage.setItem("totalPrice", String(+totalPrice + cartProduct.price));
   };
 
   return (
