@@ -2,7 +2,7 @@ import colors from "@/app/constants/colors";
 import ButtonAtom from "../atoms/button";
 import ProductMolecule from "./productMolecule";
 import TextAtom from "../atoms/text";
-import { productInterface } from "@/app/(pages)/types";
+import { productInterface } from "@/app/types";
 
 interface cardMoleculesInterface {
   product: productInterface;
