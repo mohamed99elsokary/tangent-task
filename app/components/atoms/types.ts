@@ -10,7 +10,7 @@ export interface ButtonInterface {
   onClick: () => void;
 }
 export interface TextInterface {
-  text: string;
+  text: string | number;
   color?: string;
   size?:
     | "6xl"
