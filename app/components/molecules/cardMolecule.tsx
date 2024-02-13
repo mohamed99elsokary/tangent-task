@@ -19,7 +19,12 @@ const CardMolecule = ({
 }: cardMoleculesInterface) => {
   return (
     <>
-      <ImageAtom src={thumbnail} alt={`${title} image`} />
+      <ImageAtom
+        src={thumbnail}
+        alt={`${title} image`}
+        width={300}
+        height={300}
+      />
       <TextAtom text={title} />
       <TextAtom text={description} />
       <TextAtom text={price} />
