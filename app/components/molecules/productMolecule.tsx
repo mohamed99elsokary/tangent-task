@@ -2,6 +2,7 @@ import { Card, CardBody, CardFooter, Stack } from "@chakra-ui/react";
 import ImageAtom from "../atoms/image";
 import TextAtom from "../atoms/text";
 import { productInterface } from "@/app/types";
+import { handleCurrency } from "@/app/utils";
 interface ProductMoleculePropsInterface {
   product: productInterface;
   children?: React.ReactNode;
@@ -23,7 +24,7 @@ const ProductMolecule = ({
         <Stack mt="6" spacing="3">
           <TextAtom text={product.title} />
           <TextAtom text={product.description} />
-          <TextAtom text={product.price} />
+          <TextAtom text={handleCurrency(product.price)} />
         </Stack>
       </CardBody>
       <CardFooter>{children}</CardFooter>
