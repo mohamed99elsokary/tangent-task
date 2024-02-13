@@ -4,18 +4,36 @@ import { productInterface } from "../types";
 import CartProductCardMolecule from "../components/molecules/cartProductCardMolecule";
 import { useEffect, useState } from "react";
 export default function Cart() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Array<productInterface>>([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     const stringifiedProducts: string = localStorage.getItem("cart") ?? "[]";
-    const parsedCart: any = JSON.parse(stringifiedProducts);
+    const parsedCart: Array<productInterface> = JSON.parse(stringifiedProducts);
     setProducts(parsedCart);
+    const stringifiedTotalPrice: string =
+      localStorage.getItem("totalPrice") ?? "0";
+    setTotalPrice(+stringifiedTotalPrice);
   }, []);
+  const saveCart = (cart: Array<productInterface>) => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+    setProducts(cart);
+  };
+  const changeTotalPrice = (type: string, productPrice: number) => {
+    let newTotal;
+    if (type === "+") {
+      newTotal = totalPrice + productPrice;
+    } else {
+      newTotal = totalPrice - productPrice;
+    }
 
+    localStorage.setItem("totalPrice", String(newTotal));
+    setTotalPrice(newTotal);
+  };
   const decreaseQuantity = (product: productInterface) => {
     const newCart: Array<productInterface> = [...products];
     const productIndex: number = products.findIndex(
-      (item: any) => product.id === item.id
+      (item: productInterface) => product.id === item.id
     );
 
     const oldProduct: productInterface = products[productIndex];
@@ -27,13 +45,14 @@ export default function Cart() {
         quantity: (oldProduct.quantity -= 1),
       };
     }
-    localStorage.setItem("cart", JSON.stringify(newCart));
-    setProducts(newCart);
+    saveCart(newCart);
+    changeTotalPrice("-", product.price);
   };
+
   const increaseQuantity = (product: productInterface) => {
     const newCart: Array<productInterface> = [...products];
     const productIndex: number = products.findIndex(
-      (item: any) => product.id === item.id
+      (item: productInterface) => product.id === item.id
     );
 
     const oldProduct: productInterface = products[productIndex];
@@ -41,9 +60,11 @@ export default function Cart() {
       ...oldProduct,
       quantity: (oldProduct.quantity += 1),
     };
-    localStorage.setItem("cart", JSON.stringify(newCart));
-    setProducts(newCart);
+    saveCart(newCart);
+
+    changeTotalPrice("+", product.price);
   };
+
   return (
     <ChakraProvider>
       <Grid templateColumns="repeat(1, 1fr)" gap={6}>
@@ -57,6 +78,7 @@ export default function Cart() {
           </GridItem>
         ))}
       </Grid>
+      <h1>{totalPrice}</h1>
     </ChakraProvider>
   );
 }
