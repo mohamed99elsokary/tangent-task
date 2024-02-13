@@ -3,8 +3,9 @@ import { ChakraProvider, Grid, GridItem } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { productInterface } from "./types";
 import ProductCardOrganism from "./components/organisms/productCardOrganism";
-
+import { useToast } from "@chakra-ui/react";
 export default function Home() {
+  const toast = useToast();
   const [products, setProducts] = useState([]);
 
   const fetchProducts = async () => {
@@ -18,6 +19,7 @@ export default function Home() {
 
   const addToCart = (product: productInterface) => {
     const totalPrice = localStorage.getItem("totalPrice") || "0";
+
     const cart = localStorage.getItem("cart") || "[]";
     const parsedCart: Array<productInterface> = JSON.parse(cart);
     const productIndex = parsedCart.findIndex(
@@ -36,6 +38,13 @@ export default function Home() {
     }
     localStorage.setItem("cart", JSON.stringify(parsedCart));
     localStorage.setItem("totalPrice", String(+totalPrice + cartProduct.price));
+    toast({
+      title: "added successfully",
+      description: "your item has been added to cart",
+      status: "success",
+      duration: 9000,
+      isClosable: true,
+    });
   };
 
   return (
