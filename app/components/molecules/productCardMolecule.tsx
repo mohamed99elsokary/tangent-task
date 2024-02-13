@@ -1,13 +1,8 @@
 import colors from "@/app/constants/colors";
 import ButtonAtom from "../atoms/button";
 import ProductMolecule from "./productMolecule";
-interface productInterface {
-  id: number;
-  title: string;
-  description: string;
-  price: number;
-  thumbnail: string;
-}
+import { productInterface } from "@/app/types";
+
 interface cardMoleculesInterface {
   product: productInterface;
   onClick: (product: productInterface) => void;
