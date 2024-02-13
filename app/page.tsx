@@ -9,6 +9,7 @@ interface productInterface {
   description: string;
   price: number;
   thumbnail: string;
+  quantity: number;
 }
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -23,7 +24,28 @@ export default function Home() {
   }, []);
 
   const addToCart = (product: any) => {
-    console.log({ product });
+    const cart = localStorage.getItem("cart");
+    if (!cart) {
+      localStorage.setItem(
+        "cart",
+        JSON.stringify([{ ...product, quantity: 1 }])
+      );
+    } else {
+      let parsedCart: Array<productInterface> = JSON.parse(cart);
+      const productIndex = parsedCart.findIndex(
+        (item: any) => product.id === item.id
+      );
+      if (productIndex === -1) {
+        localStorage.setItem(
+          "cart",
+          JSON.stringify([...parsedCart, { ...product, quantity: 1 }])
+        );
+      } else {
+        const oldProduct: productInterface = parsedCart[productIndex];
+        oldProduct.quantity += 1;
+        localStorage.setItem("cart", JSON.stringify(parsedCart));
+      }
+    }
   };
 
   return (
