@@ -9,7 +9,14 @@ export default async function Home() {
 
   return (
     <>
-      <Grid templateColumns="repeat(3, 1fr)" gap={6}>
+      <Grid
+        templateColumns={{
+          base: "repeat(1, 1fr)",
+          md: "repeat(2, 1fr)",
+          lg: "repeat(3, 1fr)",
+        }}
+        gap={6}
+      >
         {!!products.length ? (
           products.map((product: productInterface) => (
             <GridItem key={product.title}>
