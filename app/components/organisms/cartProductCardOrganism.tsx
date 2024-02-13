@@ -17,9 +17,8 @@ const CartProductCardOrganism = ({
   plus = () => {},
 }: cardMoleculesInterface) => {
   return (
-    <>
-      <ProductMolecule product={product} />
-      <Flex>
+    <ProductMolecule product={product}>
+      <Flex alignItems="center">
         <ButtonAtom
           text="-"
           onClick={() => {
@@ -36,7 +35,7 @@ const CartProductCardOrganism = ({
           color={colors.gray}
         />
       </Flex>
-    </>
+    </ProductMolecule>
   );
 };
 export default CartProductCardOrganism;
