@@ -1,8 +1,8 @@
 "use client";
-import ProductCardMolecule from "@/app/components/molecules/productCardMolecule";
 import { ChakraProvider, Grid, GridItem } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { productInterface } from "./types";
+import ProductCardOrganism from "./components/organisms/productCardOrganism";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -43,7 +43,7 @@ export default function Home() {
       <Grid templateColumns="repeat(3, 1fr)" gap={6}>
         {products.map((product: productInterface) => (
           <GridItem key={product.title}>
-            <ProductCardMolecule product={product} onClick={addToCart} />
+            <ProductCardOrganism product={product} onClick={addToCart} />
           </GridItem>
         ))}
       </Grid>

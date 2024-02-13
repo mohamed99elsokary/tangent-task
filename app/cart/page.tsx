@@ -1,8 +1,8 @@
 "use client";
 import { ChakraProvider, Grid, GridItem } from "@chakra-ui/react";
 import { productInterface } from "../types";
-import CartProductCardMolecule from "../components/molecules/cartProductCardMolecule";
 import { useEffect, useState } from "react";
+import CartProductCardOrganism from "../components/organisms/cartProductCardOrganism";
 export default function Cart() {
   const [products, setProducts] = useState<Array<productInterface>>([]);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -70,7 +70,7 @@ export default function Cart() {
       <Grid templateColumns="repeat(1, 1fr)" gap={6}>
         {products.map((product: productInterface) => (
           <GridItem key={product.title}>
-            <CartProductCardMolecule
+            <CartProductCardOrganism
               product={product}
               minus={decreaseQuantity}
               plus={increaseQuantity}
@@ -78,7 +78,8 @@ export default function Cart() {
           </GridItem>
         ))}
       </Grid>
-      <h1>{totalPrice}</h1>
+
+      <h1>total price: {totalPrice}</h1>
     </ChakraProvider>
   );
 }
