@@ -66,7 +66,7 @@ export default function Cart() {
   };
 
   return (
-    <ChakraProvider>
+    <>
       <Grid templateColumns="repeat(1, 1fr)" gap={6}>
         {products.map((product: productInterface) => (
           <GridItem key={product.title}>
@@ -80,6 +80,6 @@ export default function Cart() {
       </Grid>
 
       <h1>total price: {totalPrice}</h1>
-    </ChakraProvider>
+    </>
   );
 }
