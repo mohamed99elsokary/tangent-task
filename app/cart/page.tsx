@@ -1,7 +1,7 @@
 "use client";
 import { ChakraProvider, Grid, GridItem } from "@chakra-ui/react";
 import { productInterface } from "../types";
-import CartProductCardMolecule from "../components/molecules/cartProductCardMolecule copy";
+import CartProductCardMolecule from "../components/molecules/cartProductCardMolecule";
 import { useEffect, useState } from "react";
 export default function Cart() {
   const [products, setProducts] = useState([]);
