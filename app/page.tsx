@@ -4,8 +4,9 @@ import { productInterface } from "./types";
 import ProductCardOrganism from "./components/organisms/productCardOrganism";
 import { fetchProducts } from "./api/api";
 import TextAtom from "./components/atoms/text";
+import ItemsPagesMolecule from "./components/molecules/ItemsPagesMolecule";
 export default async function Home() {
-  const products = await fetchProducts();
+  const products = await fetchProducts("?limit=5");
 
   return (
     <>
@@ -27,6 +28,7 @@ export default async function Home() {
           <TextAtom text={"no products found"}></TextAtom>
         )}
       </Grid>
+      <ItemsPagesMolecule totalItemsCount={100} limit={5} />
     </>
   );
 }
