@@ -16,7 +16,7 @@ export default function Home() {
     fetchProducts();
   }, []);
 
-  const addToCart = (product: any) => {
+  const addToCart = (product: productInterface) => {
     const cart = localStorage.getItem("cart");
     if (!cart) {
       localStorage.setItem(
