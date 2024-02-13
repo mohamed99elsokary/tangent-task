@@ -1,15 +1,24 @@
 import { Grid, GridItem } from "@chakra-ui/react";
-
 import { productInterface } from "./types";
 import ProductCardOrganism from "./components/organisms/productCardOrganism";
 import { fetchProducts } from "./api/api";
 import TextAtom from "./components/atoms/text";
-import ItemsPagesMolecule from "./components/molecules/ItemsPagesMolecule";
-export default async function Home() {
-  const products = await fetchProducts("?limit=5");
+import PaginationMolecule from "./components/molecules/paginationMolecule";
+import Link from "next/link";
+const MAX_LIMIT = 5;
+interface HomePageProps {
+  searchParams?: { [key: string]: string | string[] | undefined };
+}
+export default async function Home({ searchParams }: HomePageProps) {
+  const page = searchParams?.page || 1;
+  const limit = (+page - 1) * MAX_LIMIT;
+  const { products, total } = await fetchProducts(
+    `?limit=${MAX_LIMIT}&skip=${limit}`
+  );
 
   return (
     <>
+      <Link href="/cart">cart &#8594;</Link>
       <Grid
         templateColumns={{
           base: "repeat(1, 1fr)",
@@ -28,7 +37,9 @@ export default async function Home() {
           <TextAtom text={"no products found"}></TextAtom>
         )}
       </Grid>
-      <ItemsPagesMolecule totalItemsCount={100} limit={5} />
+      {!!total && total > MAX_LIMIT && (
+        <PaginationMolecule totalItemsCount={total} limit={MAX_LIMIT} />
+      )}
     </>
   );
 }
