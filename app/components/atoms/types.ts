@@ -4,7 +4,7 @@ export interface imageAtomInterface {
   size?: "xs" | "sm" | "md" | "lg";
 }
 export interface ButtonInterface {
-  color: string;
+  color?: string;
   text: string;
   size?: "xs" | "sm" | "md" | "lg";
   onClick: () => void;
